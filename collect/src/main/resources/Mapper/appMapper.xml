@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.collect.Mapper.collectMapper">
+
+    <select id="getOldIdByTableName" resultType="java.util.Map">
+        SELECT
+            old oldId
+        FROM
+            ping_getid
+        WHERE
+            source_id = #{tableName}
+    </select>
+
+    <select id="getLastIdByTableName" resultType="java.util.Map">
+        SELECT
+            max(id) id
+        FROM
+            ${tableName}
+    </select>
+
+    <select id="tableListByTableName" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            ${tableColumnStr}
+        FROM
+            ${tableName}
+        WHERE id > ${start} AND id <![CDATA[ <= ]]> ${end}
+    </select>
+
+    <insert id="insertOldIdByTableName" parameterType="java.util.Map">
+        INSERT INTO ping_getid(source_id,old) VALUES (#{tableName},${old})
+    </insert>
+
+    <update id="updateOldIdByTableName" parameterType="java.util.Map">
+        UPDATE ping_getid SET old = ${old} WHERE source_id = #{tableName}
+    </update>
+
+    <insert id="insertCollectOne" parameterType="java.util.Map">
+        INSERT INTO ${tableName}(table_name,content,operate_time)
+        VALUES (#{sourceTableName},#{content},#{nowDate})
+    </insert>
+
+    <select id="collectListByTableName" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            table_name tableName,
+            content,
+            operate_time operateTime
+        FROM
+            ${tableName}
+        WHERE
+            id > ${start} AND id <![CDATA[ <= ]]> ${end}
+    </select>
+
+    <insert id="insertTableInfoByTableName" parameterType="java.util.Map">
+        INSERT INTO ${tableName}(${tableColumnStr})
+        SELECT a.* FROM (
+            <foreach collection="dataList" item="item" separator="union all" index="index">
+                SELECT
+                <foreach collection="item" index="ind" item="it" separator=",">
+                    ${it}
+                </foreach>
+                FROM dual
+            </foreach>
+        ) a
+    </insert>
+</mapper>

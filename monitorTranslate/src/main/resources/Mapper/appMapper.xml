@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.monitorTranslate.Mapper.appMapper">
+    <select id="getLastId" resultType="long">
+        select old from ping_getid where source_id = 'pingstatus'
+    </select>
+    <select id="getPingStatusMaxId" resultType="long">
+        select MAX(INCR) as max from itm_app_monitor
+    </select>
+    <select id="getBeteenData" resultType="map">
+        select ITM_APP_ID,ITM_MONITOR_BEGINTIME,ITM_MONITOR_TIME,ITM_RESPONSE_TIME,ITM_MONITOR_STATUS,ITM_APP_NETID
+        FROM ITM_APP_MONITOR WHERE INCR BETWEEN #{id1} and #{id2}
+    </select>
+    <update id="updateOldId">
+        update ping_getid set old = #{news} where  source_id = 'pingstatus'
+    </update>
+    <select id="getPingStatusMaxIdNet" resultType="long">
+        select MAX(id) as max from four_network_linked
+    </select>
+    <select id="getBeteenDataNet" resultType="map">
+        <!--select ipv4,resourceid,state,reason,reason_ttl,srtt,rttvar,tos,collect_time,name,type,ipv4_vendor,appname-->
+        <!--from pingstatus where id BETWEEN #{id1} and #{id2}-->
+
+        select ipv4,resourceid,state,reason,reason_ttl,srtt,rttvar,tos,collect_time,name,type,ipv4_vendor,appname
+        from four_network_linked where id BETWEEN #{id1} and #{id2}
+    </select>
+    <update id="updateOldIdNet">
+        update ping_getid set old = #{news} where source_id = 'fournet'
+    </update>
+
+</mapper>

@@ -1,0 +1,16 @@
+hksso_union_hy项目：海康单点登录模块、联通云接口、数据冷备接口
+
+huayu项目：cocall接口
+
+monitorTranslate项目：基础设施、四级网指标采集结果传送到告警模块
+
+owlcc-monitor项目：法眼平台应用监控、指标采集模块分离出来
+
+shouxin项目：首信云接口模块
+
+Interfaceinspur项目：国双用户行为分析模块
+
+shouxin_alerm项目：将首信，华为虚拟化数据产生的告警数据传送到kafka，将移动专网和外部专网华为虚拟化加入
+
+huawei项目是冯如写的，用来采集华为虚拟化平台的告警数据，以及向kafka推送告警数据
+

@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: libs/commons-net-3.6.jar libs/mysql-connector-java-5.1.26-
+ bin.jar libs/fastjson-1.2.5.jar libs/commons-logging-1.1.2.jar libs/h
+ ttpclient-4.2.5.jar libs/httpcore-4.2.4.jar libs/dom4j-1.6.1.jar
+Main-Class: main.Main
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.hksso_union_hy.Mapper.CommonMapper">
+    <select id="selectCompany" resultType="String">
+        SELECT distinct NAME FROM union_encode
+    </select>
+    <!--查询对应的id在表中是否存在记录-->
+    <select id="getSearchId" resultType="map">
+        select count(*) as count from interface_config where INTERFACE_ID = #{id}
+    </select>
+    <!--查询id对应的表名及字段数据-->
+    <select id="getProperties" resultType="map">
+        select conf.INTERFACE_TABLE as tableName,field.FIELD_TARGET as targetProperty,field.FIELD_MAPPING as mappingProperty
+        from interface_config conf,interface_fields_config field
+        where conf.INTERFACE_ID = #{id} and field.INTERFACE_CODE = conf.INTERFACE_CODE
+    </select>
+    <!--将拼的串插入到数据表中-->
+    <insert id="saveData" parameterType="String">
+        ${value}
+    </insert>
+    <!--保存操作日志-->
+    <!--写入数据库日志记录-->
+    <insert id="SaveAuditLog">
+        insert into webfinal_audit_log(id,type,app_code,method,description,request_ip,
+        creator,remark,create_time,status)
+        values
+        (#{id},"0","union-Interface",#{method},#{description},#{request_ip},
+        #{creator},#{remark},#{create_time},"1")
+    </insert>
+    <insert id="SaveAuditLogs">
+        insert into zlog(uuid,method,hostname,operator,operate_time)
+        values
+        (#{uuid},#{method},#{hostname},#{operator},#{operate_time})
+    </insert>
+    <!--获取自增的id task_id-->
+    <select id="getLogId" resultType="java.lang.Long">
+        select id from zlog where uuid = #{uuid}
+    </select>
+    <update id="UpdateAuditLog">
+        update zlog set status = "0" where uuid = #{uuid}
+    </update>
+    <!--<insert id="SaveAuditLog">-->
+        <!--insert into webfinal_audit_log(id,type,app_code,method,description,request_ip,-->
+        <!--creator,remark,create_time,status)-->
+        <!--values-->
+        <!--(#{id},"0","union-Interface",#{method},#{description},#{request_ip},-->
+        <!--#{creator},#{remark},#{create_time},#{status})-->
+    <!--</insert>-->
+</mapper>

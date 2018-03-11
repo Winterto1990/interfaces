@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Interfaceinspur:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Interface-inspur.war">
+      <element id="artifact" artifact-name="Interfaceinspur:war exploded" />
+    </root>
+  </artifact>
+</component>

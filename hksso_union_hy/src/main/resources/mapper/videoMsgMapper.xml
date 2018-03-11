@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.hksso_union_hy.Mapper.videoMsgMapper">
+    <select id="selectCompany" resultType="String">
+        SELECT distinct NAME FROM union_encode
+    </select>
+
+    <select id="saveDevice">
+        insert into ysp_device_info(deviceTypeCode,deviceTypeCodeName,manufacture,manufactureName,
+        model,modelName,businessType,businessTypeName,installSite,installSiteName,installSitePath,
+        siteCode,ip,port,status,orgCode,orgCodeName,updateStatusOn,code,volume,volumeUnit,volumeUnitName,
+        usageVolume,name,types,deviceType,operateTime)
+        values(#{deviceTypeCode},#{deviceTypeCodeName},#{manufacture},#{manufactureName},
+        #{model},#{modelName},#{businessType},#{businessTypeName},#{installSite},#{installSiteName},#{installSitePath},
+        #{siteCode},#{ip},#{port},#{status},#{orgCode},#{orgCodeName},#{updateStatusOn},#{code},#{volume},#{volumeUnit},#{volumeUnitName},
+        #{usageVolume},#{name},#{types},#{deviceType},#{operateTime})
+    </select>
+    <insert id="savePosition">
+        insert into ysp_position(code,orgCode,businessType,resNameSuffix,areaCode,onlineStatus,latestQualityId,
+        updateStatusOn,operateTime)
+        values(#{code},#{orgCode},#{businessType},#{resNameSuffix},#{areaCode},#{onlineStatus},#{latestQualityId},
+        #{updateStatusOn},#{operateTime})
+    </insert>
+    <insert id="saveQualityDiagnosis">
+        insert into ysp_quality_diagnosis(id,videoCode,videoLoss,blurredImage,noiseInterference,stripeNoise,frameFreeze,
+        videoTampering,blackwhiteImage,darkImage,overbrightImage,colorCast,contrast,scene,videoCover,videoDithering,
+        ptz,createOn,createUserId,imageUrl,resultCode,audioLoss,volumeBig,volumeSmall,onlineStatus,insertOn,width,height,operateTime)
+        values(
+        #{id},#{videoCode},#{videoLoss},#{blurredImage},#{noiseInterference},#{stripeNoise},#{frameFreeze},
+        #{videoTampering},#{blackwhiteImage},#{darkImage},#{overbrightImage},#{colorCast},#{contrast},#{scene},#{videoCover},#{videoDithering},
+        #{ptz},#{createOn},#{createUserId},#{imageUrl},#{resultCode},#{audioLoss},#{volumeBig},#{volumeSmall},#{onlineStatus},#{insertOn},
+        #{width},#{height},#{operateTime})
+    </insert>
+    <insert id="SaveAuditLog">
+        insert into webfinal_audit_log(id,type,app_code,method,description,request_ip,
+        creator,remark,create_time,status)
+        values
+        (#{id},"0","union-Interface",#{method},#{description},#{request_ip},
+        #{creator},#{remark},#{create_time},"1")
+    </insert>
+</mapper>

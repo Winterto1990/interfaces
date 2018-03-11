@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.appmonitor.apprestatpic">
+
+<insert id="insertAppMonitorInfo">
+	INSERT INTO  itm_app_monitor_restime_x
+	(id,app_code,app_name,model_name,path,steptime,writetime)	VALUES
+	<foreach collection="list" item="item" index="index" separator="," >
+		(
+		UUID(),#{item.AppId},#{item.appName},#{item.modelName},#{item.FirstPageUrl},#{item.VisitDeepTimePre},NOW()
+		)
+	</foreach>
+</insert>
+
+	<!--<insert id="insertAppMonitorInfo">-->
+		<!--INSERT INTO  itm_app_monitor_restime-->
+		<!--(id,app_name,path,steptime,totaltime,urlnum,avgtime,writetime)-->
+		<!--VALUES-->
+		<!--<foreach collection="list" item="item" index="index" separator="," >-->
+			<!--(UUID(),#{item.appName},#{item.VisitDeepUrl},#{item.VisitDeepTimePre},-->
+			<!--#{item.VisitDeepTotalTime},#{item.UrlNum},#{item.AvgTime},NOW()-->
+			<!--)-->
+		<!--</foreach>-->
+	<!--</insert>-->
+
+	<insert id="insertPicBinary"  parameterType="java.util.Map">
+		INSERT INTO ITM_APPIC_BINANRY (id,app_id,app_name,create_time,pic_binanry) VALUES (
+		uuid(),
+		#{appId},
+		#{appName},
+		NOW(),
+		#{binary}
+		)
+	</insert>
+
+	<select id="sss" resultType="map">
+		SELECT ITM_APPCATAGORY_ID,ITM_APPCATAGORY_CODE
+		FROM ITM_APPCATAGORY
+	</select>
+</mapper>

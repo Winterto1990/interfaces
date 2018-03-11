@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+   <!--  Jmx Setting-->
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+  <jmxConfigurator/>
+  <!-- <include resource="org/springframework/boot/logging/logback/base.xml"/>-->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- Log message format -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	  <file>springMybatis.log</file>
+	  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	    <!-- daily rollover -->
+	    <FileNamePattern>springMybatis.%d{yyyy-MM-dd}.log</FileNamePattern>
+	    <!-- keep 30 days' worth of history -->
+	    <maxHistory>30</maxHistory>
+	  </rollingPolicy>
+	  <encoder>
+	    <Pattern>%d{HH:mm:ss.SSS}  %-5level %logger{35} - %msg %n</Pattern>
+	  </encoder>        
+  </appender>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+             <level>INFO</level>
+         </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+<!--对具体类设置日志输出级别-->
+  <logger name="com.inspur.sp.web.BaseInfrastructure.Controller.HostController" level="WARE">
+    <appender-ref ref="FILE" />
+  </logger>
+  <logger name="org.mybatis" level="INFO">
+    <appender-ref ref="STDOUT" />
+  </logger>
+  <logger name="org.springframework" level="ERROR" />
+
+  <!-- Setting the root level of logging to INFO -->
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="FILE" />
+    <appender-ref ref="CONSOLE" />
+  </root>
+</configuration>

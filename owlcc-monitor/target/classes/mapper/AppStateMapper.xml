@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.backstage.appmonitor">
+
+	<resultMap id="AppResultMap" type="com.appmonitor.appstatemonitor.po.AppBean">
+		<result property="itmAppId" column="ITM_APP_ID"/>
+		<result property="itmAppCode" column="ITM_APP_CODE"/>
+		<result property="itmAppName" column="ITM_APP_NAME"/>
+		<result property="itmAppDesc" column="ITM_APP_DESC"/>
+		<result property="itmAppDept" column="ITM_APP_DEPT"/>
+		<result property="itmAppCourtcode" column="ITM_APP_COURTCODE"/>
+		<result property="itmNetgroupId" column="ITM_NETGROUP_ID"/>
+		<result property="itmAppcatagoryId" column="ITM_APPCATAGORY_ID"/>
+		<result property="itmAppVendor" column="ITM_APP_VENDOR"/>
+		<result property="itmAppUptime" column="ITM_APP_UPTIME"/>
+		<result property="itmAppVersion" column="ITM_APP_VERSION"/>
+		<result property="itmAppMaintenanceId" column="ITM_APP_MAINTENANCE_ID"/>
+		<result property="itmAppOrder" column="ITM_APP_ORDER"/>
+		<result property="itmAppNetid" column="ITM_APP_NETID"/>
+		<result property="itmAppIconsrc" column="ITM_APP_ICONSRC"/>
+		<result property="itmAppSystemurl" column="ITM_APP_SYSTEMURL"/>
+		<result property="organId" column="ORGAN_ID"/>
+		<result property="isGlobal" column="IS_GLOBAL"/>
+		<result property="itmAppPid" column="ITM_APP_PID"/>
+		<result property="itmAppIp" column="ITM_APP_IP"/>
+		<result property="itmAppPort" column="ITM_APP_PORT"/>
+		<result property="itmAppWebRoot" column="ITM_APP_WEBROOT"/>
+		<result property="itmAppCatagoryName" column="ITM_APPCATAGORY_NAME"/>
+
+	</resultMap>
+
+	<select id="selectAppInfoByNet" resultMap="AppResultMap">
+	SELECT
+		ITM_APP_ID,ITM_APP_CODE,ITM_APP_NAME,ITM_APP_DESC,ITM_APP_DEPT,ITM_APP_COURTCODE,ITM_NETGROUP_ID,ITM_APP_VENDOR,
+		ITM_APP_UPTIME,ITM_APP_VERSION,ITM_APP_MAINTENANCE_ID,ITM_APP_ORDER,ITM_APP_NETID,ITM_APP_ICONSRC,ITM_APP_SYSTEMURL,
+		ORGAN_ID,IS_GLOBAL,ITM_APP_PID,ITM_APP_IP,ITM_APP_PORT,ITM_APP_WEBROOT,ITM_APPCATAGORY_NAME
+		FROM
+		ITM_APP,ITM_APPCATAGORY
+		WHERE
+		ITM_NETGROUP_ID = ITM_APPCATAGORY_CODE
+		<if test = "itmAppNetid != null and itmAppNetid !=''" >
+			AND ITM_NETGROUP_ID IN (#{itmAppNetid})
+		</if >
+
+	</select>
+<!--插入应用监控报错信息-->
+	<insert id="insertAppMonitor" parameterType="java.util.Map">
+		INSERT INTO itm_app_monitor(ITM_APP_ID,
+		ITM_MONITOR_STATUS,
+		ITM_MONITOR_TIME,
+		ITM_MONITOR_BEGINTIME,ITM_APP_NETID) VALUES(
+		#{app_id},#{monitor_status},#{monitor_time},#{begin_time},#{netCode}
+		)
+	</insert>
+	<!--插入应用监控xiangying信息-->
+	<insert id="insertResponsAppMonitor" parameterType="java.util.Map">
+		INSERT INTO itm_app_monitor(ITM_APP_ID,
+		ITM_MONITOR_STATUS,
+		ITM_MONITOR_TIME,
+		ITM_MONITOR_BEGINTIME,ITM_RESPONSE_TIME,ITM_APP_NETID) VALUES(
+		#{app_id},#{monitor_status},#{monitor_time},#{begin_time},#{response_time},#{netCode}
+		)
+	</insert>
+
+</mapper>

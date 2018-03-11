@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shouxin.alerm.Mapper.translateMapper">
+    <select id="getResourceIdHw" resultType="map" parameterType="String">
+        select myid as uuid from itm_hardware_resources_idrelation where hwid = #{subUuid} limit 1
+    </select>
+    <select id="getResourceIdSx" resultType="map" parameterType="String">
+        select myid as uuid from itm_hardware_resources_idrelation where sxid = #{subUuid}  limit 1
+    </select>
+    <!--查询首信告警表的范围值-->
+    <select id="getSXalermDatas" resultType="map">
+        <![CDATA[select ID,PUUID,ITEM_ID,DEVICE_NAME,ALERT_STATUS,ALERT_LEVEL,ALERT_DESC,
+        DATE_TIME,RECOVER_TIME,OPRATE_TIME,ALERT_TYPE,TASK_ID
+        from union_alert where ID < #{max} and ID >= #{min} and ALERT_DESC like "%PING%"]]>
+    </select>
+    <!--查询首信告警最大的task_id的值-->
+    <select id="sxMaxId" resultType="map">
+        select max(ID) as maxs from union_alert limit 1
+    </select>
+    <!--更新首信告警表的最大值-->
+    <update id="updateSxMax" parameterType="Long">
+        update shouxin_alm_schedule set value = #{value} where name = 'sx_task_id'
+    </update>
+    <!--查询shouxin_alm_schedule中sx_task_id值-->
+    <select id="sxFromId" parameterType="String" resultType="map">
+        select value from shouxin_alm_schedule where name = #{sxTaskId} limit 1
+    </select>
+    <!--获取对应item_id告警的生成告警 首信-->
+    <select id="getCreatUuid" resultType="map" parameterType="String">
+        select ID from union_alert where ITEM_ID =(SELECT ITEM_ID FROM UNION_ALERT WHERE  ITEM_ID =#{itemId} ORDER BY OPRATE_TIME limit 1) GROUP BY ITEM_ID ORDER BY OPRATE_TIME limit 1
+    </select>
+    <!--华为告警级别查询-->
+    <select id="getHWalermLevel" resultType="map" parameterType="string">
+      select alarm_level,count(*) as counts from huawei_alerm_level where flag = '1' and alarm_title = #{title}
+    </select>
+    <!--查询外部专网华为虚拟化平台告警的进度id-->
+    <select id="getWBZWmaxId" resultType="String">
+        select max(id) as id from gz_collect3
+    </select>
+    <!--查询外部专网华为虚拟化平台告警表oldid-->
+    <select id="getWBZWoldId" resultType="String">
+        select old from ping_getid where source_id = 'hwxnh_alerm_lastid'
+    </select>
+    <!--查询外部专网华为虚拟化告警在起始id中的数据-->
+    <select id="getWBZWhwAlermData" parameterType="map" resultType="string">
+        <![CDATA[select content from gz_collect3 where id > #{old} and id <= #{new}]]>
+    </select>
+    <!--更新外部专网华为虚拟化告警进度表中的最大值-->
+    <update id="updateLastMaxId" parameterType="map">
+        update ping_getid set old = #{new} where source_id = 'hwxnh_alerm_lastid'
+    </update>
+</mapper>

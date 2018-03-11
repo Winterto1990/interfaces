@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.sp.web.mapper.HostMapper">
+    <select id="selectCompany" resultType="String">
+        SELECT distinct NAME FROM union_encode
+    </select>
+    <insert id="saveAllHostCldData" parameterType="java.util.Map">
+        INSERT INTO union_host_datasource
+        (ID,VCPUTOTAL,VCPUALLOCATION,VCPUNOALLOCATION,MEMORYTOTAL,MEMORYALLOCATION,MEMORYNOALLOCATION,TIMESTAMP,OPRATETIME,COMPANY,TASK_ID)
+        VALUES
+        (#{id},
+        #{vcpuTotal},
+        #{vcpuAllocation},
+        #{vcpuNoAllocation},
+        #{memoryTotal},
+        #{memoryAllocation},
+        #{memoryNoAllocation},
+        #{timestamp},
+        #{date},
+        #{cam},
+        #{increaseid})
+    </insert>
+    <insert id="saveBlockStorageData">
+        insert into union_blockstorage
+        (ID,STORAGETOTAL,STORAGEUSED,STORAGEREMAIN,STORAGEOUTPUT,STORAGEINPUT,TIMESTAMP,OPERATETIME,COMPANY,TASK_ID)
+        VALUES
+        (#{id},
+        #{storageTotal},
+        #{storageUsed},
+        #{storageRemain},
+        #{storageOutput},
+        #{storageInput},
+        #{timestamp},
+        #{date},
+        #{cam},
+        #{increaseid})
+    </insert>
+    <insert id="SaveHostVirtualDataCpuAllocation">
+        insert into union_virtual_datasource_cpuAllocation
+        (ID,UUID,PID,HOSTNAME,IP,CORENUM,MAINFREQUENCY,TIMESTAMP,OPERATETIME,COMPANY,TASK_ID)
+        values
+        (#{id},#{uuid},#{pid},#{hostname},#{ip},#{coreNum},#{mainFrequency},
+        #{timestamp},#{date},#{cam},
+        #{increaseid})
+    </insert>
+    <insert id="SaveHostVirtualDataMemorydiskDetail">
+        insert into union_virtual_datasource_memorydiskDetail
+        (ID,UUID,PID,HOSTNAME,IP,DISKALLOCATION,MEMORYALLOCATION,MEMORYNOUSED,TIMESTAMP,OPERATETIME,COMPANY,TASK_ID)
+        values
+        (#{id},#{uuid},#{pid},#{hostname},#{ip},#{diskAllocation},#{memoryAllocation},
+        #{memoryNoUsed},#{timestamp},#{date},#{cam},#{increaseid})
+    </insert>
+
+    <insert id="SavePhysicalCldData">
+        insert into union_phsical_cld(ID,TOTAL,CORETOTAL,UUID,IP,CPUNUM,CORENUM,
+        MAINFREQUENCY,COREALLOCATION,CORENOALLOCATION,TIMESTAMP,OPERATETIME,COMPANY,TASK_ID)
+        values
+        (#{id},#{total},#{coreTotal},#{uuid},#{ip},#{cpuNum},#{coreNum},
+        #{mainFrequency},#{coreAllocation},#{coreNoAllocation},#{timestamp},#{date},#{cam},#{increaseid})
+    </insert>
+    <insert id="SaveHostStorageData">
+        insert into union_cloud_storagedata(ID,STORAGEWHOLEIN,STORAGEWHOLEOUT,STORAGENAME,STORAGETOTAL,STORAGEUSED,
+        STORAGEREMAIN,LUN,LUNSIZE,LUNUSED,STORAGEOUTPUT,STORAGEINPUT,TIMESTAMP,OPERATETIME,COMPANY,TASK_ID)
+        values
+        (#{id},#{storageWholeIn},#{storageWholeOut},#{storageName},#{storageTotal},#{storageUsed},
+        #{storageRemain},#{lun},#{lunSize},#{lunUsed},#{storageOutput},#{storageInput},#{timestamp},#{date},#{cam},#{increaseid}
+        )
+    </insert>
+    <insert id="SaveNasStorageData">
+        insert into union_NASstorage
+        (ID,STORAGENAME,STORAGETOTAL,STORAGETOTALUSED,STORAGEREMAIN,IP,
+        STORAGEALL,STORAGEUSED,STORAGENOUSED,STORAGEWHOLEIN,STORAGEWHOLEOUT,
+        STORAGEOUTPUT,STORAGEINPUT,TIMESTAMP,OPERATETIME,COMPANY,TASK_ID)
+        values
+        (#{id},#{storageName},#{storageTotal},#{storageTotalUsed},#{storageRemain},#{ip},
+        #{storageAll},#{storageUsed},#{storageNoUsed},#{storageWholeIn},#{storageWholeOut},
+        #{storageOutput},#{storageInput},#{timestamp},#{date},#{cam},#{increaseid})
+    </insert>
+    <insert id="SaveHostBandWidthData">
+        insert into union_hostbandWidth(ID,BANDWIDTHTOTAL,IP,BANDWIDTH,NETWORKCARD,BANDWIDTHUSAGE,TIMESTAMP,OPERATETIME,CAMPANY,TASK_ID)
+        values
+        (#{id},#{bandwidthTotal},#{ip},#{bandwidth},#{netwrokCard},#{bandwidthUsage},#{timestamp},#{date},#{cam},#{increaseid})
+    </insert>
+    <insert id="SaveHostVirtualBWData">
+        insert into union_hostVirtualBWData(ID,IP,BANDWIDTH,BANDWIDTHUSAGE,TIMESTAMP,OPERATETIME,CAMPANY,TASK_ID)
+        values
+        (#{id},#{ip},#{bandwidth},#{bandwidthUsage},#{timestamp},#{date},#{cam},#{increaseid})
+    </insert>
+    <insert id="SaveNetWorkData">
+        insert into union_network(ID,DEVICEIP,CPUUSAGE,CPUMAXUSAGE,TOTALMEMORY,USEDMEMORY,
+        MOMERYUSAGE,MEMORYMAXUSAGE,INTERFACENAME,LOSEBAG,NETPORTSTATUS,BANDWIDTH,BANDWIDTHUSAGE,READNETFLOW,WRITENETFLOW,
+        ERRORBAG,TIMESTAMP,PINGSTATUS,OPERATETIME,COMPANY,TASK_ID)
+        values
+        (#{id},#{deviceIp},#{cpuUsage},#{cpuMaxUsage},#{totalMemory},#{usedMemory},
+        #{memoryUsage},#{memoryMaxUsage},#{interfaceName},#{loseBag},#{netportStatus},
+        #{bandWidth},#{bandwidthUsage},#{readNetFlow},#{writeNetFlow},#{errorBag},#{timestamp},#{pingStatus},#{date},#{cam},#{increaseid})
+    </insert>
+    <insert id="SaveHostData">
+        insert into union_host_data
+        (ID,UUID,IP,CPUUSAGE,TOTALMEMORY,MAXCPUUSAGE,USEDMEMORY,MEMORYUSAGE,MAXMEMORYUSAGE,
+        TOTALDISKSIZE,USEDDISKSIZE,DISKINPUT,DISKOUTPUT,PINGSTATUS,FLAG,NOUSEDMEMORY,NOUSEDDISKSIZE,TIMESTAMP,OPERATETIME,CAMPANY,TASK_ID)
+        values
+        (#{id},#{uuid},#{ip},#{cpuUsage},#{totalMemory},#{maxCpuUsage},#{usedMemory},#{memoryUsage},#{maxMemoryUsage},
+        #{totalDiskSize},#{usedDiskSize},#{diskInput},#{diskOutput},#{pingstatus},#{flag},#{nousedMemory},#{nousedDiskSize},#{timestamp},#{date},#{cam},#{increaseid})
+    </insert>
+    <insert id="SaveAlertData">
+        insert into union_alert
+        (ID,ITEM_ID,DEVICE_IP,DEVICE_NAME,ALERT_LEVEL,ALERT_STATUS,
+        ALERT_DESC,DATE_TIME,RECOVER_TIME,
+        OPRATE_TIME,CAMPATY,TASK_ID)
+        values
+        (#{id},#{item_id},#{ip},#{name},#{level},#{alert_status},
+        #{alert_desc},#{date_time},#{recovery_time},
+        #{date},#{cam},#{increaseid})
+    </insert>
+    <!--写入数据库日志记录-->
+    <insert id="SaveAuditLog">
+        insert into webfinal_audit_log(id,type,app_code,method,description,request_ip,
+        creator,remark,create_time,status)
+        values
+        (#{id},"0","union-Interface",#{method},#{description},#{request_ip},
+        #{creator},#{remark},#{create_time},"1")
+    </insert>
+    <insert id="SaveAuditLogs">
+        insert into zlog(uuid,method,hostname,operator,operate_time,insert_amout)
+        values
+        (#{uuid},#{method},#{hostname},#{operator},#{operate_time},#{amount})
+    </insert>
+    <!--获取自增的id task_id-->
+    <select id="getLogId" resultType="java.lang.Long">
+        select id from zlog where uuid = #{uuid}
+    </select>
+    <update id="UpdateAuditLog">
+        update zlog set status = "0" where uuid = #{uuid}
+    </update>
+    <insert id="SaveNetWorkSwitch">
+        insert into union_network_switch(
+        UUID,NAME,DEVICEIP,CPUUSAGE,
+        MEMORYUSAGE,
+        BANDWIDTHUSAGEUP,BANDWIDTHUSAGEDOWN,
+        TIMESTAMP,OPERATTIME,TASK_ID
+        )
+        values
+        (#{uuid},#{name},#{deviceIp},#{cpuUsage},
+        #{memoryUsage},
+        #{bandWidthUsageUp},#{bandWidthUsageDown},
+        #{timestamp},#{date},#{increaseid}
+        )
+    </insert>
+    <insert id="SaveNetWorkPort">
+        insert into union_network_port(UUID,PUUID,INTERFACENAME,LOSEBAG,
+        NETPORTSTATUS,BANDWIDTH,BANDWIDTHUSAGEUP,
+        BANDWIDTHUSAGEDOWN,READNETFLOW,WRITENETFLOW,PINGSTATUS,
+        ERRORBAG,TIMESTAMP,OPERATETIME,TASK_ID)
+        values
+        (#{uuid},#{puuid},#{interfaceName},#{loseBag},
+        #{netportStatus},#{bandWidth},#{bandWidthUsageUp},
+        #{bandWidthUsageDown},#{readNetFlow},#{writeNetFlow},#{pingStatus},
+        #{errorBag},#{timestamp},#{date},#{increaseid})
+    </insert>
+</mapper>

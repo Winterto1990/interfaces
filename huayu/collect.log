@@ -1,0 +1,104 @@
+10:31:57.807 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.inspur.collect]' package. Please check your configuration. 
+10:31:59.120 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:31:59.125 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23 
+10:31:59.253 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:31:59.489 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat] 
+10:31:59.696 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field collect in com.inspur.collect.Controller.collectController required a bean of type 'com.inspur.collect.Service.collectService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.inspur.collect.Service.collectService' in your configuration.
+ 
+10:32:13.946 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.inspur.collect]' package. Please check your configuration. 
+10:32:15.493 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:32:15.495 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23 
+10:32:15.632 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:32:15.870 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat] 
+10:32:16.023 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field collect in com.inspur.collect.Controller.collectController required a bean of type 'com.inspur.collect.Service.collectService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.inspur.collect.Service.collectService' in your configuration.
+ 
+10:32:47.087 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.inspur.collect]' package. Please check your configuration. 
+10:32:48.485 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:32:48.493 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23 
+10:32:48.614 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:32:48.831 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat] 
+10:32:48.946 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field collect in com.inspur.collect.Controller.collectController required a bean of type 'com.inspur.collect.Service.collectService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.inspur.collect.Service.collectService' in your configuration.
+ 
+10:33:53.288 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.inspur.collect]' package. Please check your configuration. 
+10:33:54.802 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:33:54.807 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23 
+10:33:54.923 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:33:55.783 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat] 
+10:33:55.812 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Cannot determine embedded database driver class for database type NONE
+
+Action:
+
+If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+ 
+10:35:10.955 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.inspur.collect]' package. Please check your configuration. 
+10:35:12.403 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:35:12.406 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23 
+10:35:12.522 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:35:13.426 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat] 
+10:35:13.472 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Cannot determine embedded database driver class for database type NONE
+
+Action:
+
+If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+ 
+10:37:14.311 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.inspur.collect]' package. Please check your configuration. 
+10:37:15.659 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+10:37:15.664 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23 
+10:37:15.786 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+10:38:06.724 [pool-1-thread-1] WARN  c.i.c.Controller.collectController - hihihihihi 
+10:38:06.724 [pool-1-thread-1] WARN  c.i.c.Controller.collectController - hihihihihi 

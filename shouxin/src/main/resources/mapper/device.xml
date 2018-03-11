@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.shouxin.Interface.DeviceInterface">
+    <select id="selectCompany" resultType="String">
+        SELECT distinct NAME FROM union_encode
+    </select>
+    <insert id="SaveNetWorkSwitch">
+        insert into union_network_switch_intime(ID,
+        UUID,NAME,DEVICEIP,CPUUSAGE,
+        MEMORYUSAGE,
+        BANDWIDTHUSAGEUP,BANDWIDTHUSAGEDOWN,
+        BANDWIDTH,LOSEBAGNUMS,WRONGBAGNUMS,
+        TIMESTAMP,OPERATTIME,TASK_ID
+        )
+        values
+        (#{id},#{uuid},#{name},#{deviceIp},#{cpuUsage},
+        #{memoryUsage},
+        #{bandWidthUsageUp},#{bandWidthUsageDown},
+        #{bandWidth},#{lostBagNums},#{wrongBagNums},
+        #{timestamp},#{date},#{increaseid}
+        )
+    </insert>
+    <insert id="SaveNetWorkSwitchHistory">
+        insert into union_network_switch_history(ID,
+        UUID,NAME,DEVICEIP,CPUUSAGE,
+        MEMORYUSAGE,
+        BANDWIDTHUSAGEUP,BANDWIDTHUSAGEDOWN,
+        BANDWIDTH,LOSEBAGNUMS,WRONGBAGNUMS,
+        TIMESTAMP,OPERATTIME,TASK_ID
+        )
+        values
+        (#{id},#{uuid},#{name},#{deviceIp},#{cpuUsage},
+        #{memoryUsage},
+        #{bandWidthUsageUp},#{bandWidthUsageDown},
+        #{bandWidth},#{lostBagNums},#{wrongBagNums},
+        #{timestamp},#{date},#{increaseid}
+        )
+    </insert>
+    <insert id="SaveNetWorkPort">
+        insert into union_network_port_intime(ID,UUID,PUUID,INTERFACENAME,LOSEBAG,
+        NETPORTSTATUS,BANDWIDTH,BANDWIDTHUSAGEUP,
+        BANDWIDTHUSAGEDOWN,READNETFLOW,WRITENETFLOW,PINGSTATUS,
+        PORTTIMEDELAY,LOSTBAGNUMS,WRONGBAGNUMS,BAGTRANSMIT,
+        ERRORBAG,TIMESTAMP,OPERATETIME,TASK_ID)
+        values
+        (#{id},#{uuid},#{puuid},#{interfaceName},#{loseBag},
+        #{netportStatus},#{bandWidth},#{bandWidthUsageUp},
+        #{bandWidthUsageDown},#{readNetFlow},#{writeNetFlow},#{pingStatus},
+        #{portTimeDelay},#{lostBagNums},#{wrongBagNums},#{bagTransmit},
+        #{errorBag},#{timestamp},#{date},#{increaseid})
+    </insert>
+    <insert id="SaveNetWorkPortHistory">
+        insert into union_network_port_history(ID,UUID,PUUID,INTERFACENAME,LOSEBAG,
+        NETPORTSTATUS,BANDWIDTH,BANDWIDTHUSAGEUP,
+        BANDWIDTHUSAGEDOWN,READNETFLOW,WRITENETFLOW,PINGSTATUS,
+        PORTTIMEDELAY,LOSTBAGNUMS,WRONGBAGNUMS,BAGTRANSMIT,
+        ERRORBAG,TIMESTAMP,OPERATETIME,TASK_ID)
+        values
+        (#{id},#{uuid},#{puuid},#{interfaceName},#{loseBag},
+        #{netportStatus},#{bandWidth},#{bandWidthUsageUp},
+        #{bandWidthUsageDown},#{readNetFlow},#{writeNetFlow},#{pingStatus},
+        #{portTimeDelay},#{lostBagNums},#{wrongBagNums},#{bagTransmit},
+        #{errorBag},#{timestamp},#{date},#{increaseid})
+    </insert>
+    <insert id="SaveHostData">
+        insert into union_host_data
+        (ID,UUID,IP,CPUUSAGE,TOTALMEMORY,MAXCPUUSAGE,USEDMEMORY,MEMORYUSAGE,MAXMEMORYUSAGE,
+        TOTALDISKSIZE,USEDDISKSIZE,DISKINPUT,DISKOUTPUT,PINGSTATUS,FLAG,NOUSEDMEMORY,NOUSEDDISKSIZE,TIMESTAMP,OPERATETIME,CAMPANY,hostname,TASK_ID)
+        values
+        (#{id},#{uuid},#{ip},#{cpuUsage},#{totalMemory},#{maxCpuUsage},#{usedMemory},#{memoryUsage},#{maxMemoryUsage},
+        #{totalDiskSize},#{usedDiskSize},#{diskInput},#{diskOutput},#{pingstatus},#{flag},#{nousedMemory},#{nousedDiskSize},#{timestamp},#{date},#{cam},#{hostname},#{increaseid})
+    </insert>
+    <insert id="SaveHostDataHistory">
+        insert into union_host_data_history
+        (ID,UUID,IP,CPUUSAGE,TOTALMEMORY,MAXCPUUSAGE,USEDMEMORY,MEMORYUSAGE,MAXMEMORYUSAGE,
+        TOTALDISKSIZE,USEDDISKSIZE,DISKINPUT,DISKOUTPUT,PINGSTATUS,FLAG,NOUSEDMEMORY,NOUSEDDISKSIZE,TIMESTAMP,OPERATETIME,CAMPANY,hostname,TASK_ID)
+        values
+        (#{id},#{uuid},#{ip},#{cpuUsage},#{totalMemory},#{maxCpuUsage},#{usedMemory},#{memoryUsage},#{maxMemoryUsage},
+        #{totalDiskSize},#{usedDiskSize},#{diskInput},#{diskOutput},#{pingstatus},#{flag},#{nousedMemory},#{nousedDiskSize},#{timestamp},#{date},#{cam},#{hostname},#{increaseid})
+    </insert>
+    <insert id="SaveAlertData">
+        insert into union_alert
+        (ID,UUID,PUUID,ITEM_ID,DEVICE_IP,DEVICE_NAME,ALERT_LEVEL,ALERT_STATUS,
+        ALERT_DESC,DATE_TIME,RECOVER_TIME,ALERT_TYPE,
+        OPRATE_TIME,CAMPATY,TASK_ID)
+        values
+        (#{id},#{uuid},#{puuid},#{item_id},#{ip},#{name},#{level},#{alert_status},
+        #{alert_desc},#{date_time},#{recovery_time},#{alert_type},
+        #{date},#{cam},#{increaseid})
+    </insert>
+    <insert id="SaveAuditLogs">
+        insert into zlog(uuid,method,hostname,operator,operate_time,insert_amout)
+        values
+        (#{uuid},#{method},#{hostname},#{operator},#{operate_time},#{amount})
+    </insert>
+    <!--获取自增的id task_id-->
+    <select id="getLogId" resultType="java.lang.Long">
+        select id from zlog where uuid = #{uuid}
+    </select>
+    <update id="UpdateAuditLog">
+        update zlog set status = "0" where uuid = #{uuid}
+    </update>
+</mapper>

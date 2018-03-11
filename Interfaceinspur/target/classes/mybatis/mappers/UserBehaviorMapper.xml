@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inspur.userBehavior.dao.UserBehaviorDao">
+
+    <resultMap id="AppCodeInfo" type="com.inspur.userBehavior.data.AppCodeInfoBean">
+        <result property="AppCode" column="AppCode"/>
+        <result property="AppGuoShuangCode" column="AppCodeGuoShuang"/>
+    </resultMap>
+
+    <!--查询应用信息-->
+    <select id="queryAppInfo"  resultMap="AppCodeInfo">
+        SELECT
+        AppCode,AppCodeGuoShuang
+        FROM appInfoGuoShuang
+    </select>
+
+    <!--插入用户行为数据-->
+    <insert id="insertBehaviorValueDay" parameterType="java.util.List">
+        INSERT INTO  user_behavior_day
+        (
+        AppCode,
+        Visits,
+        Visitors,
+        ApproxDistinctIPCount,
+        AvgLoadingDuration,
+        PageRefreshRate,
+        BounceRate,
+        AvgSessionPageViews,
+        AvgPageViewDepth,
+        AvgPageDuration,
+        SessionMouseClickCount,
+        DataDate,
+        CreateTime
+        )
+        VALUES
+        <foreach collection="list" item="IndexValueBean" index="index" separator="," >
+            (
+            #{IndexValueBean.AppCode},
+            #{IndexValueBean.Visits},
+            #{IndexValueBean.Visitors},
+            #{IndexValueBean.ApproxDistinctIPCount},
+            #{IndexValueBean.AvgLoadingDuration},
+            #{IndexValueBean.PageRefreshRate},
+            #{IndexValueBean.BounceRate},
+            #{IndexValueBean.AvgSessionPageViews},
+            #{IndexValueBean.AvgPageViewDepth},
+            #{IndexValueBean.AvgPageDuration},
+            #{IndexValueBean.SessionMouseClickCount},
+            #{IndexValueBean.Dimensionality},
+            NOW()
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertBehaviorValueHourOfDay" parameterType="java.util.List">
+        INSERT INTO  user_behavior_hourofday
+        (
+        AppCode,
+        Visits,
+        Visitors,
+        ApproxDistinctIPCount,
+        AvgLoadingDuration,
+        PageRefreshRate,
+        BounceRate,
+        AvgSessionPageViews,
+        AvgPageViewDepth,
+        AvgPageDuration,
+        SessionMouseClickCount,
+        DataDateTime,
+        DataDate,
+        CreateTime
+        )
+        VALUES
+        <foreach collection="list" item="IndexValueBean" index="index" separator="," >
+            (
+            #{IndexValueBean.AppCode},
+            #{IndexValueBean.Visits},
+            #{IndexValueBean.Visitors},
+            #{IndexValueBean.ApproxDistinctIPCount},
+            #{IndexValueBean.AvgLoadingDuration},
+            #{IndexValueBean.PageRefreshRate},
+            #{IndexValueBean.BounceRate},
+            #{IndexValueBean.AvgSessionPageViews},
+            #{IndexValueBean.AvgPageViewDepth},
+            #{IndexValueBean.AvgPageDuration},
+            #{IndexValueBean.SessionMouseClickCount},
+            #{IndexValueBean.Dimensionality},
+            DATE_SUB(CURDATE(),INTERVAL +1 DAY),
+            NOW()
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertBehaviorValueCountry" parameterType="java.util.List">
+        INSERT INTO  user_behavior_country
+        (
+        AppCode,
+        Country,
+        Visits,
+        Visitors,
+        ApproxDistinctIPCount,
+        AvgLoadingDuration,
+        PageRefreshRate,
+        BounceRate,
+        AvgSessionPageViews,
+        AvgPageViewDepth,
+        AvgPageDuration,
+        SessionMouseClickCount,
+        DataDate,
+        CreateTime
+        )
+        VALUES
+        <foreach collection="list" item="IndexValueBean" index="index" separator="," >
+            (
+            #{IndexValueBean.AppCode},
+            #{IndexValueBean.Dimensionality},
+            #{IndexValueBean.Visits},
+            #{IndexValueBean.Visitors},
+            #{IndexValueBean.ApproxDistinctIPCount},
+            #{IndexValueBean.AvgLoadingDuration},
+            #{IndexValueBean.PageRefreshRate},
+            #{IndexValueBean.BounceRate},
+            #{IndexValueBean.AvgSessionPageViews},
+            #{IndexValueBean.AvgPageViewDepth},
+            #{IndexValueBean.AvgPageDuration},
+            #{IndexValueBean.SessionMouseClickCount},
+            DATE_SUB(CURDATE(),INTERVAL +1 DAY),
+            NOW()
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="insertBehaviorValueProvince" parameterType="java.util.List">
+        INSERT INTO user_behavior_province
+        (
+        AppCode,
+        Province,
+        Visits,
+        Visitors,
+        ApproxDistinctIPCount,
+        AvgLoadingDuration,
+        PageRefreshRate,
+        BounceRate,
+        AvgSessionPageViews,
+        AvgPageViewDepth,
+        AvgPageDuration,
+        SessionMouseClickCount,
+        DataDate,
+        CreateTime
+        )
+        VALUES
+        <foreach collection="list" item="IndexValueBean" index="index" separator="," >
+            (
+            #{IndexValueBean.AppCode},
+            #{IndexValueBean.Dimensionality},
+            #{IndexValueBean.Visits},
+            #{IndexValueBean.Visitors},
+            #{IndexValueBean.ApproxDistinctIPCount},
+            #{IndexValueBean.AvgLoadingDuration},
+            #{IndexValueBean.PageRefreshRate},
+            #{IndexValueBean.BounceRate},
+            #{IndexValueBean.AvgSessionPageViews},
+            #{IndexValueBean.AvgPageViewDepth},
+            #{IndexValueBean.AvgPageDuration},
+            #{IndexValueBean.SessionMouseClickCount},
+            DATE_SUB(CURDATE(),INTERVAL +1 DAY),
+            NOW()
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="insertBehaviorValueCity" parameterType="java.util.List">
+        INSERT INTO  user_behavior_city
+        (
+        AppCode,
+        City,
+        Visits,
+        Visitors,
+        ApproxDistinctIPCount,
+        AvgLoadingDuration,
+        PageRefreshRate,
+        BounceRate,
+        AvgSessionPageViews,
+        AvgPageViewDepth,
+        AvgPageDuration,
+        SessionMouseClickCount,
+        DataDate,
+        CreateTime
+        )
+        VALUES
+        <foreach collection="list" item="IndexValueBean" index="index" separator="," >
+            (
+            #{IndexValueBean.AppCode},
+            #{IndexValueBean.Dimensionality},
+            #{IndexValueBean.Visits},
+            #{IndexValueBean.Visitors},
+            #{IndexValueBean.ApproxDistinctIPCount},
+            #{IndexValueBean.AvgLoadingDuration},
+            #{IndexValueBean.PageRefreshRate},
+            #{IndexValueBean.BounceRate},
+            #{IndexValueBean.AvgSessionPageViews},
+            #{IndexValueBean.AvgPageViewDepth},
+            #{IndexValueBean.AvgPageDuration},
+            #{IndexValueBean.SessionMouseClickCount},
+            DATE_SUB(CURDATE(),INTERVAL +1 DAY),
+            NOW()
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="insertBehaviorValuePageUrl" parameterType="java.util.List">
+        INSERT INTO user_behavior_top
+        (
+        AppCode,
+        PageURL,
+        Visits,
+        SessionPageViews,
+        AvgPageDuration,
+        AvgSessionPageViews,
+        BounceRate,
+        DataDate,
+        CreateTime
+        )
+        VALUES
+        <foreach collection="list" item="IndexValueBean" index="index" separator="," >
+            (
+            #{IndexValueBean.AppCode},
+            #{IndexValueBean.Dimensionality},
+            #{IndexValueBean.Visits},
+            #{IndexValueBean.SessionPageViews},
+            #{IndexValueBean.AvgPageDuration},
+            #{IndexValueBean.AvgSessionPageViews},
+            #{IndexValueBean.BounceRate},
+            DATE_SUB(CURDATE(),INTERVAL +1 DAY),
+            NOW()
+            )
+        </foreach>
+    </insert>
+
+
+</mapper>

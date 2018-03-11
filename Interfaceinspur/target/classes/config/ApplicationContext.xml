@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:task="http://www.springframework.org/schema/task"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                        http://www.springframework.org/schema/task
+                        http://www.springframework.org/schema/task/spring-task.xsd">
+    <context:property-placeholder ignore-unresolvable="true"
+                                  location="classpath:config/application.properties" />
+
+    <task:annotation-driven/>
+
+
+    <!-- 引入属性配置文件 -->
+    <bean class="com.inspur.core.utils.PropertiesUtil">
+        <property name="locations">
+            <list>
+                <value>classpath:config/jdbc.properties</value>
+                <!--<value>classpath:config/application.properties</value>-->
+            </list>
+        </property>
+        <property name="properties">
+            <props>
+                <!--&lt;!&ndash; dubbo个性化配置(服务名,端口) 预留功能 &ndash;&gt;-->
+                <!--<prop key="dubbo.application.name">${project.artifactId}</prop>-->
+                <!--<prop key="dubbo.protocol.port">1${server.port}</prop>-->
+            </props>
+        </property>
+    </bean>
+
+
+    <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+    <context:component-scan base-package="com.inspur">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+
+    <!-- 引入SPRING配置文件 -->
+    <!--<import resource="spring/mq.xml"/>-->
+    <!--<import resource="spring/redis.xml"/>-->
+    <import resource="dataSource.xml"/>
+    <import resource="mybatis.xml"/>
+    <!--<import resource="shiro.xml"/>-->
+    <!-- optional -->
+    <!--<import resource="cache/applicationContext-memcached.xml" />-->
+    <!--<import resource="email/applicationContext-email.xml" />-->
+    <!--<import resource="jms/applicationContext-jms-simple.xml" />-->
+    <!--<import resource="jms/applicationContext-jms-advanced.xml" />-->
+    <!--<import resource="classpath:jmx/applicationContext-jmx.xml" />-->
+    <!--添加缓存支持-->
+    <!--<import resource="classpath:ehcache/ehcache-config.xml" />-->
+    <!--添加网络线程定时器-->
+    <!--<import resource="classpath:monitor/applicationContext-netmetrics.xml" />-->
+    <!--服务调度情况-->
+    <!--<import resource="classpath:monitor/applicationContext-metrics.xml" />-->
+    <!--调度中心-->
+    <!--<import resource="classpath:scheduler/applicationContext-quartz-corn-cluster.xml" />-->
+    <!--webservice服务api-->
+    <!--<import resource="classpath:webservice/applicationContext-soap-server.xml" />-->
+    <!--<import resource="classpath:webservice/applicationContext-jaxrs-server.xml" />-->
+    <!--<import resource="dubbo-provider.xml" />-->
+    <!--<import resource="applicationContext-webservice.xml"/>-->
+    <!--<import resource="spring/*.xml"/>-->
+
+</beans>

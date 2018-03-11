@@ -1,0 +1,5 @@
+16:24:56.817  INFO  c.i.h.HkssoUnionHyApplicationTests - Starting HkssoUnionHyApplicationTests on xingwentao00 with PID 6140 (started by xingwentao in E:\inspur_pro\newFYPC\Code\interfaces\hksso_union_hy) 
+16:24:56.829  INFO  c.i.h.HkssoUnionHyApplicationTests - No active profile set, falling back to default profiles: default 
+16:24:57.500  ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated 
+16:24:58.891  INFO  c.i.h.D.DynamicDataSourceRegister - Dynamic DataSource Registry 
+16:25:06.771  INFO  c.i.h.HkssoUnionHyApplicationTests - Started HkssoUnionHyApplicationTests in 10.418 seconds (JVM running for 11.99) 

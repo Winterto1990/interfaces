@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.hksso_union_hy.Mapper.dataColdStorage">
+    <insert id="saveColdStorage" parameterType="java.util.Map">
+        insert into data_cold_storage(ID,BFYQ,CSLX,FYNAME,GXPL,GXPLMC,JLSCGXTS,NJYHJZQ,
+        NETNAME,SCQLGXSJ,SJZL,SYSTEMNAME,ZBTS,ZRCS,ZXGXSJ,HJPERSONTAGE,TITLE,OPERATETIME,TASK_ID)
+        values
+        (#{id},#{bfyq},#{cslx},#{fyname},#{gxpl},#{gxplmc},#{jlscgxts},#{n_jyhjzq},
+        #{netname},#{scqlgxsj},#{sjzl},#{systemname},#{zbts},#{zrcs},#{zxgxsj},#{hjpersontage},#{title},#{operatetime},#{increaseid})
+    </insert>
+
+    <insert id="SaveAuditLogs">
+        insert into zlog(uuid,method,hostname,operator,operate_time)
+        values
+        (#{uuid},#{method},#{hostname},#{operator},#{operate_time})
+    </insert>
+    <!--获取自增的id task_id-->
+    <select id="getLogId" resultType="java.lang.Long">
+        select id from zlog where uuid = #{uuid}
+    </select>
+    <update id="UpdateAuditLog">
+        update zlog set status = "0" where uuid = #{uuid}
+    </update>
+
+    <insert id="saveLog">
+        insert into webfinal_audit_log(id,method,create_time,status)
+        values
+        (#{ID},'colddatasrotage',#{df},'1')
+    </insert>
+</mapper>

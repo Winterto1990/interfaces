@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inspur.hksso_union_hy.Mapper.HkloginMapper">
+	<resultMap type="com.inspur.hksso_union_hy.Bean.MenuBean"  id="menuMap">
+		<id column="ID" property="id"/>
+		<result column="NAME" property="name"/>
+		<result column="APP_CODE" property="appcode"/>
+		<result column="ICON" property="icon"/>
+		<result column="PATH" property="path"/>
+		<result column="DATA" property="data"/>
+		<result column="RES_PATH" property="resPath"/>
+		<result column="SORT_ORDER" property="sort_order"/>
+		<result column="PARENT_CODE" property="parent_code"/>
+		<result column="CREATOR" property="creator"/>
+		<result column="LAST_EDITOR" property="lastEditor"/>
+		<result column="REMARK" property="remark"/>
+		<result column="STATUS" property="status" />
+		<result column="OPEN_TYPE" property="opentype" />
+		<result column="IS_LEAF" property="isLeaf"/>
+		<result column="CREATE_TIME" property="createTime"  javaType="java.util.Date"/>
+		<result column="LAST_TIME" property="lastTime"  javaType="java.util.Date"/>
+	</resultMap>
+
+    <!--根据组织ID获取组织信息-->
+    <select id="getOrganInfoFirst" resultType="map">
+        SELECT
+          ID,
+        CODE,
+        NAME,
+        SHORT_NAME,
+        COURT_NUM,
+        ORGAN_TYPE,
+        COURT_TYPE,
+        PARENT_CODE,
+        REGION_NAME,
+        STATUS,
+		SHORT_CODE
+        FROM
+        	pub_organ AS T3,
+        	(
+        		SELECT
+        			ORG_CODE,
+        			PARENT_CODE
+        		FROM
+        			pub_organ_tree AS T2,
+        			(
+        				SELECT
+        					CODE
+        				FROM
+        					pub_organ
+        				WHERE
+        					ID = #{organID}
+        			) AS T1
+        		WHERE
+        			T1. CODE = T2.PARENT_CODE
+        		OR T1. CODE = T2.ORG_CODE
+        	) AS T4
+        WHERE
+        	T3. CODE = T4.ORG_CODE
+        	<if test="lastTime!=null">
+				AND LAST_TIME>#{lastTime}
+			</if>
+
+    </select>
+
+
+	<select id="getOrganInfoSecond" resultType="map">
+		SELECT
+		ID,
+		CODE,
+		NAME,
+		SHORT_NAME,
+		COURT_NUM,
+		ORGAN_TYPE,
+		COURT_TYPE,
+		PARENT_CODE,
+		REGION_NAME,
+		STATUS
+		FROM
+		pub_organ AS T3,
+		(
+		SELECT
+		ORG_CODE,
+		PARENT_CODE
+		FROM
+		pub_organ_tree AS T2,
+		(
+		SELECT
+		CODE
+		FROM
+		pub_organ
+		WHERE
+		ID = #{organID}
+		) AS T1
+		WHERE
+		T1. CODE = T2.PARENT_CODE
+-- 		        		OR T1. CODE = T2.ORG_CODE
+		) AS T4
+		WHERE
+		T3. CODE = T4.ORG_CODE
+		<if test="lastTime!=null">
+			AND LAST_TIME>#{lastTime}
+		</if>
+
+	</select>
+
+    <select id="getUserInfo" resultType="map" >
+       SELECT
+	      U.ID useridinner,
+	      U.ACCOUNT userid,
+	      U.NAME username,
+          U.ORG_CODE,
+	      U.ROLE_VALUE role,
+          U.ROLE_CODE  ROLE_CODE,
+ 	      APPS.NAME appname
+		FROM
+		    pub_user U,
+	        pub_apps APPS
+        WHERE
+        U.ACCOUNT = #{userAccount}
+        AND APPS.CODE =#{appCode}
+    </select>
+	
+	
+	<select id="getRoleCodeVaule" resultType="map">
+		SELECT
+	    AR.ROLE_CODE,
+	    R.`VALUE`
+        FROM
+	    pub_app_role AR,
+	    pub_role R
+        WHERE
+	     AR.ROLE_CODE = R.ID
+         AND AR.APP_CODE =#{appCode}
+	</select>
+
+	<select id="findMenu"  parameterType="java.util.Map" resultMap="menuMap">
+		SELECT DISTINCT
+        	RS.ID,
+        	RS.APP_CODE,
+        	RS.NAME,
+        	RS.ICON,
+        	RS.PATH,
+--         	RS.RES_PATH,
+        	RS.PARENT_CODE,
+--         	RS.IS_LEAF,
+--         	RS.DATA,
+        	RS.REMARK,
+        	RS.OPEN_TYPE,
+        	RS.SORT_ORDER,
+        	RS.STATUS
+        FROM
+        	PUB_RESOURCE RS,
+        	PUB_ROLE_RESOURCE R
+        WHERE
+        	RS. STATUS = '1'
+        AND RS.APP_CODE = R.APP_CODE
+        AND RS.ID = R.RES_CODE
+        AND RS.APP_CODE = #{appCode}
+        AND R.ROLE_CODE = #{roleCode}
+        AND RS.PARENT_CODE = #{pid}
+        ORDER BY
+        	RS.IS_LEAF,
+        	RS.SORT_ORDER
+	</select>
+
+	<select id="getAppQuotaInfo" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT
+      	ID
+      FROM
+      	pub_infrastructure_value
+      WHERE
+      	ID = #{ID}
+	</select>
+
+
+	<select id="getOrganInfoOne" resultType="map">
+        SELECT
+        	o.ID id,
+        	o.NAME name,
+        	o.SHORT_NAME short_name,
+        	o.CODE code,
+        	o.COURT_NUM court_num,
+        	ty.NAME organ_type,
+        	o.REGION_NAME org_location,
+        	o.COURT_TYPE court_type,
+        	t.PARENT_CODE parent_code
+        FROM
+        	pub_organ o,
+        	pub_organ_type ty,
+        	pub_organ_tree t
+        WHERE
+        	ty.CODE = o.ORGAN_TYPE
+        AND o.CODE = #{organID} and t.ORG_CODE = o.CODE
+	</select>
+
+</mapper>

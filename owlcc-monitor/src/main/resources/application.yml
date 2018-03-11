@@ -1,0 +1,54 @@
+server:
+  port: 8025  #monitor
+#  port: 8024  #渲染时间
+spring:
+  application:
+    name: microservice-monitor
+  profiles:
+   active: dev
+#数据源配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/zg_fypc?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://172.16.10.103:3306/xysjdb?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+#    url: jdbc:mysql://127.0.0.1:3306/xysjdb?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+#    username: root
+    username: fayan
+#    password: root
+    password: fayan
+#具体配置
+    initialSize: 10
+    minIdle: 10
+    maxActive: 30
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    validationQuery: SELECT 1
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 30
+    filters: stat
+
+  jpa:
+      show-sql: true
+      hibernate:
+          ddl-auto: update
+#配置网系
+  netGroup:
+      code: FYWX.1 #互联网
+#      code: FYWX.3  #数据专网
+#配置组织机构
+  organ:
+      id: zg
+#是否进行ping操作 1进行ping 0表示不进行ping
+  ping:
+      isFlag: 1
+#mybatis配置
+mybatis:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  configuration:
+      map-underscore-to-camel-case: true
+      use-generated-keys: true
+      default-fetch-size: 100
+      default-statement-timeout: 30
